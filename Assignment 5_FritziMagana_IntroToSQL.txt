@@ -4,13 +4,16 @@ Your Name: Jennifer Magana
 
 
 
-1A)	
+1A) Create a query that displays the employees names and indicates the amounts of their salaries through asterisks. Each asterisk signifies hundred dollars. Sort the data in descending order of salary. Label the column EMPLOYEE_AND_THEIR_SALARIES.
+
 SELECT CONCAT(ename, RPAD(' ', (TRUNC(sal, -2) / 100 + 1), '*'))
 AS "EMPLOYEE_AND_THEIR_SALARIES"
 FROM emp
 ORDER BY sal DESC;
 
-1B)	
+1B) Display the employees name, username, hire date, salary and salary review date, which is the first Monday after six months of service. Label the column REVIEW. Format the dates to appear in the format mm/dd/yy. Salary should be rounded. Username is first two letters of the name
+in the lower case.
+
 SELECT ename AS "Name",
 LOWER(SUBSTR(TRIM(ename), 1, 2)) AS "Username",
 TO_CHAR(hiredate, 'MM/DD/YY') AS "Hiredate",
@@ -18,7 +21,8 @@ ROUND(sal, 0) AS "Salary",
 TO_CHAR(NEXT_DAY(ADD_MONTHS(hiredate, 6), 'MONDAY'), 'MM/DD/YY') AS "REVIEW"
 FROM emp;
 
-1C)
+1C) Use subquery to display all employees, in department location 'BOSTON' with a salary of greater than $1000.
+
 SELECT e.empno AS "Emp. #", e.ename AS "Emp. Name",
 d.deptno AS "Dept. #", d.loc AS "Location"
 FROM emp e, dept d
@@ -27,12 +31,14 @@ WHERE d.deptno = e.deptno
 
 ---------------
 
-2A)
+2A) Write a query to display the employee name, job, and hire date for all employees who started between 01/01/81 to 12/31/81. Concatenate the name and job together, separated by a space and comma, and label the column Employees.
+
 SELECT (TRIM(ename) || ', ' || job) AS "Employees", hiredate
 FROM emp
 WHERE hiredate BETWEEN TO_DATE('01/01/1981', 'MM/DD/YYYY') AND TO_DATE('12/31/1981', 'MM/DD/YYYY')
 
-2B)
+2B)  Explain the usage of correlated subqueries, inline views with an example.
+
 --Correlated subqueries are subqueries that reference the table in
 the outer query. They are used when the subquery needs to answer a problem with multiple parts and that answer depends on the results of the outer query. Inline views are subqueries in the FROM statement. It is commonly used to simplify queries that rely on complex JOIN operations and/or condensing several separate queries into a single query.
 
