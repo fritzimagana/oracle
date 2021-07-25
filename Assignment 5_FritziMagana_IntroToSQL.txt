@@ -1,16 +1,6 @@
 Assignment 5
 
-Your Name: Fritzi Magana
-
-Oracle SQL: sqluser31 
-
-Username: fritzimagana@voyager.deanza.edu
-
-Last four digits Student ID #: 7283
-
-Due date 07/23/21
-
-Date Handed in 07/23/21
+Your Name: Jennifer Magana
 
 
 
