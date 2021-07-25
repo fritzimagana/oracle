@@ -1,0 +1,64 @@
+Assignment 5
+
+Your Name: Fritzi Magana
+
+Oracle SQL: sqluser31 
+
+Username: fritzimagana@voyager.deanza.edu
+
+Last four digits Student ID #: 7283
+
+Due date 07/23/21
+
+Date Handed in 07/23/21
+
+
+
+1A)	
+SELECT CONCAT(ename, RPAD(' ', (TRUNC(sal, -2) / 100 + 1), '*'))
+AS "EMPLOYEE_AND_THEIR_SALARIES"
+FROM emp
+ORDER BY sal DESC;
+
+1B)	
+SELECT ename AS "Name",
+LOWER(SUBSTR(TRIM(ename), 1, 2)) AS "Username",
+TO_CHAR(hiredate, 'MM/DD/YY') AS "Hiredate",
+ROUND(sal, 0) AS "Salary",
+TO_CHAR(NEXT_DAY(ADD_MONTHS(hiredate, 6), 'MONDAY'), 'MM/DD/YY') AS "REVIEW"
+FROM emp;
+
+1C)
+SELECT e.empno AS "Emp. #", e.ename AS "Emp. Name",
+d.deptno AS "Dept. #", d.loc AS "Location"
+FROM emp e, dept d
+WHERE d.deptno = e.deptno
+      AND d.deptno IN (SELECT deptno FROM dept WHERE UPPER(loc) = UPPER('BOSTON')) ;
+
+---------------
+
+2A)
+SELECT (TRIM(ename) || ', ' || job) AS "Employees", hiredate
+FROM emp
+WHERE hiredate BETWEEN TO_DATE('01/01/1981', 'MM/DD/YYYY') AND TO_DATE('12/31/1981', 'MM/DD/YYYY')
+
+2B)
+--Correlated subqueries are subqueries that reference the table in
+the outer query. They are used when the subquery needs to answer a problem with multiple parts and that answer depends on the results of the outer query. Inline views are subqueries in the FROM statement. It is commonly used to simplify queries that rely on complex JOIN operations and/or condensing several separate queries into a single query.
+
+-- Correlated Subqueries example:
+SELECT e.empno, e.deptno, e.ename, d1.loc
+FROM emp e, dept d1
+WHERE d1.loc = (SELECT d2.loc FROM dept d2 WHERE d2.deptno = e.deptno);
+
+ -- Inline Views Example:
+SELECT e.empno, e.ename, dept_info
+FROM emp e,
+     (
+      SELECT UPPER(TRIM(dname) || ' - ' || TRIM(loc))
+                AS dept_info,
+             deptno
+      FROM dept
+     ) d
+WHERE e.deptno = d.deptno;
+
